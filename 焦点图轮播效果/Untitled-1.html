@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{
+	margin:0;
+	padding:0;}
+	.container{
+		width:600px;
+		height:400px;
+		position:relative;
+	    overflow:hidden;
+		margin:auto;}
+		.hua{
+			width:600px;
+		height:400px;
+			position:absolute;
+			}
+			.anniu{
+						position:absolute;
+						width:5%;
+						height:30%;
+						bottom:0px;
+						top:0;
+						right:0;
+						margin:auto;
+						z-index:2;}
+						.anniu .on{
+							background:#C30;
+							}
+						.anniu span{
+						   cursor: pointer;
+						   border: 1px solid #fff; 
+						   width: 15px; 
+						   height: 15px;
+						    border-radius: 50%;
+							 background:#999;
+							  margin-bottom: 8px;
+							  float:left;
+							  }
+							  .an{
+								  width:28px;
+								  height:58px;
+								  background:#000;
+								  opacity:.5;
+								  color:white;
+								  font-size:50px;
+								  font-weight:bold;
+								  position:absolute;
+								  right:0;
+								  margin:auto;
+								  left:0;
+								  display:none;
+								  cursor:pointer;}
+								  #hou{
+									  bottom:10px;}
+									  .container:hover .an{
+										  display:block;}
+										  .an:hover{
+											  opacity:0.65;}
+					  
+</style>
+		<script type="text/javascript"  >
+		window.onload=function(){
+			var container=document.getElementById('container');
+			var hua=document.getElementById('hua');
+			var annius=document.getElementById('anniu').getElementsByTagName('span');
+			var shang=document.getElementById('qian');
+			var xia=document.getElementById('hou');
+	        var index=1;
+			var b=annius.length;
+			var animated=false;//当正在动画时点击切换应该没有效果，当动画停止时才有效果，避免一直不停切换所造成的卡
+			var timer;
+			function showButton(){
+				for(var i=0; i< b; i++){
+					if(annius[i].className == 'on'){
+						annius[i].className= '';
+						break	;					
+						}
+					}
+	           annius[index - 1].className = 'on';
+				}
+			/* 黑块滑动效果*/
+			function animate(offset){
+				var newtop=parseInt(hua.style.top ) + offset;
+				var time=300;//位移总时间
+				var interval=10;//位移时间间隔
+				var speed=offset/(time/interval);//要偏移的距离除以次数
+				function go(){
+					if((speed<0&&parseInt(hua.style.top )>newtop)|| (speed>0&&parseInt(hua.style.top )<newtop)){
+						animated=true;
+						hua.style.top=parseInt(hua.style.top)+ speed + 'px';
+						setTimeout(go,interval);
+						}
+						else{
+							animated=false;
+							hua.style.top=newtop + 'px';
+				if(newtop > -400){
+					hua.style.top=-2000+'px';
+					}
+					if(newtop < -2000){
+					hua.style.top=-400+'px';
+					}
+							}
+					}
+				
+				go();
+				}
+				
+				function play(){
+					timer=setInterval(function(){
+						xia.onclick();
+						},3000)
+					}
+					
+					function stop(){
+						clearInterval(timer)
+						}
+				
+			shang.onclick=function(){
+				if(index==1){
+					index=5;}
+					else{
+						index-=1;
+						}
+				showButton();
+				if(animated==false){
+				animate(400);}
+				}
+			xia.onclick=function(){
+				if(index==5){
+					index=1;}
+					else{
+						index+=1;
+						}
+				showButton();
+				if(animated==false){
+				animate(-400);}
+				}	
+				for(var i=0; i<b; i++){
+					annius[i].onclick=function(){
+						if(this.className=='on'){
+							return;}
+						var myindex=parseInt(this.getAttribute('index'));
+						var offset=-400*(myindex-index);
+						animate(offset);
+					    index=myindex;
+						showButton()
+						}
+					}
+					container.onmouseover= stop;
+					container.onmouseout= play;
+					play();
+				}
+		</script>
+</head>
+
+<body>
+<div class="container" id="container">
+    <div id="hua" class="hua"  style="top:-400px;" >
+    <img src="img/5.jpg" />
+    <img src="img/1.jpg" />
+    <img src="img/2.jpg" />
+    <img src="img/3.jpg" />
+    <img src="img/4.jpg" />
+    <img src="img/5.jpg" />
+    <img src="img/1.jpg" />
+    </div>
+    <div id="anniu" class="anniu" >
+    <span  index="1" class="on"></span>
+    <span  index="2"></span>
+    <span  index="3"></span>
+    <span  index="4"></span>
+    <span  index="5"></span>
+    </div>
+<a class="an" id="qian" style="transform:rotate(-90deg)"  >></a>
+<a class="an" id="hou" style="transform:rotate(90deg)">></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0;}
+ul{ position:relative; margin:auto;}
+li{ float:left; list-style:none; }
+img{transition:all 0.01s;}
+ul li:nth-of-type(1) img,ul li:nth-of-type(5) img{ width:180px; height:100px; opacity:0.3; z-index:1; position:absolute;}
+ul li:nth-of-type(2) img,ul li:nth-of-type(4) img{ width:260px; height:200px; opacity:0.7; z-index:2; position:absolute;}
+ul li:nth-of-type(3) img{ width:420px; height:280px;z-index:3; position:absolute; left:280px;}
+ul li:nth-of-type(2) img{ left:100px; margin-top:40px}
+ul li:nth-of-type(4) img{ left:620px; margin-top:40px}
+ul li:nth-of-type(1) img{ left:0px; margin-top:90px}
+ul li:nth-of-type(5) img{ left:800px; margin-top:90px}
+.container{ margin:50px auto; width:1070px; height:600px;}
+input{position:absolute;z-index:5;top:170px;font-size:30px;}
+input:nth-of-type(2){ left:350px; }
+input:nth-of-type(1){left:900px;}
+</style>
+</head>
+
+<body>
+<div class="container">
+<input type="button" value=">" />
+<input type="button" value="<">
+<ul>
+<li><a href="#"><img src="Img/0929100.jpg" /></a></li>
+<li><a href="#"><img src="Img/4949133_154705706000_2.jpg" /></a></li>
+<li><a href="#"><img src="Img/7655688_134225264001_2.jpg" /></a></li>
+<li><a href="#"><img src="Img/Redocn_2010080702375334.jpg" /></a></li>
+<li><a href="#"><img src="Img/QQ截图20161009192209.png"/></a></li>
+</ul>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="move.js"></script>
+<script>
+
+window.onload=function(){
+	var btn=document.getElementsByTagName('input');
+	var li=document.getElementsByTagName('li');
+	var arr=[];
+	for(var i=0; i<li.length;i++){
+		var img=li[i].getElementsByTagName('img')[0];		
+		arr.push([img.width, img.height, parseInt(getStyle(img,'margin-top')), parseInt(getStyle(img,'left')) ,getStyle(img,'zIndex'),getStyle(img,'opacity')*100]);
+		}
+
+btn[0].onclick=function(){
+	arr.push(arr[0]);
+	arr.shift();
+	for(var i=0; i<li.length;i++){
+		var img=li[i].getElementsByTagName('img')[0];	
+		img.style.zIndex=arr[i][4];
+		startMove(img, {left:arr[i][3],width:arr[i][0],height:arr[i][1],opacity:arr[i][5],marginTop:arr[i][2]} );
+		}
+		}
+
+	btn[1].onclick=function(){
+	arr.unshift(arr[li.length-1]);
+	arr.pop();
+	for(var i=0; i<li.length;i++){
+		var img=li[i].getElementsByTagName('img')[0];	
+		img.style.zIndex=arr[i][4];
+		startMove(img, {left:arr[i][3],width:arr[i][0],height:arr[i][1],opacity:arr[i][5],marginTop:arr[i][2]} );
+		}
+		}
+	
+	function getStyle(obj,attr){
+		if(obj.currentStyle){
+			return obj.currentStyle[attr];
+		}
+		else
+		{
+			return getComputedStyle(obj,false)[attr];
+		}
+	}
+	
+	
+	
+	
+	
+	}
+</script>

@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{ padding:0; margin:0;}
+li{ list-style:none; width:100%; height:30px; line-height:30px; position:relative; border-bottom:1px dashed #333333; overflow:hidden;}
+#ull{ width:300px; height:auto; float:left; border-top:1px solid #ccc; margin:20px;}
+div{ position:absolute; top:-30px;}
+</style>
+</head>
+
+<body>
+<ul id="ull">
+    <li>
+        <div>
+        <p>aaaaaaaa</p>
+        <p>ddddddddddd</p>
+        </div>
+    </li>
+    <li>
+        <div>
+        <p>ffffffffff</p>
+        <p>gggggggggggggg</p>
+        </div>
+    </li>
+    <li>
+        <div>
+        <p>hhhhhhhhhhh</p>
+        <p>jjjjjjjjj</p>
+        </div>
+    </li>
+    <li>
+        <div>
+        <p>xxxxxxxxxx</p>
+        <p>cccccccccc</p>
+        </div>
+    </li>
+    <li>
+        <div>
+        <p>vvvvvvvvvvvvvv</p>
+        <p>bbbbbbbbbbb</p>
+        </div>
+    </li>
+</ul>
+</body>
+</html>
+<script type="text/javascript" src="move.js"></script>
+<script>
+window.onload=function(){
+	var ull=document.getElementById('ull');
+	var divv=ull.getElementsByTagName('div');
+	var time=null;
+	var now=0;
+	var btn=true;
+	
+	setInterval(change,4000)
+	function change(){
+		time=setInterval(function(){
+			
+			if(now==divv.length){
+				clearInterval(time);
+				now=0;
+				btn=!btn;
+				}
+				else if(btn){
+					startMove(divv[now],{top:0});
+					now+=1;
+					}
+				else{
+					startMove(divv[now],{top:-30});
+					now+=1;
+					}
+			
+			},200);
+			
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	}
+</script>
